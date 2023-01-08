@@ -35,3 +35,22 @@ where
             and Divisor.num <> 1
             and mod(Dividend.num, Divisor.num) = 0
     );
+
+select
+    num
+from
+    (
+        select
+            Dividend.num,
+            count(distinct Divisor.num) c
+        from
+            Numbers Dividend,
+            Numbers Divisor
+        where
+            mod(Dividend.num, Divisor.num) = 0
+            and Divisor.num <= Dividend.num
+        group by
+            Dividend.num
+    ) temp
+where
+    c = 2;
